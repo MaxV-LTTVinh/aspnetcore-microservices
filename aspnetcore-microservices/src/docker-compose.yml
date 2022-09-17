@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   #database section
   orderdb:
@@ -30,27 +32,7 @@ services:
 
   kibana:
     image: docker.elastic.co/kibana/kibana:7.17.2
-    
-  #microservices api section
-  product.api:
-    image: ${DOCKER_REGISTRY-}product-api:${PLATFORM:-linux}-${TAG:-latest}
-    build:
-      context: .
-      dockerfile: Services/Product.API/Dockerfile
-    
-  customer.api:
-    image: ${DOCKER_REGISTRY-}customer-api:${PLATFORM:-linux}-${TAG:-latest}
-    build:
-      context: .
-      dockerfile: Services/Customer.API/Dockerfile
 
-  basket.api:
-    image: ${DOCKER_REGISTRY-}basket-api:${PLATFORM:-linux}-${TAG:-latest}
-    build:
-      context: .
-      dockerfile: Services/Basket.API/Dockerfile
-      
-    
 #network section
 networks:
   default:
