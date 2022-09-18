@@ -5,6 +5,7 @@ VisualStudioVersion = 17.3.32819.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{11F947EA-6159-4D88-BF71-E8F6EF4F3095}"
 	ProjectSection(SolutionItems) = preProject
+		src\Services\Product.API\.dockerignore = src\Services\Product.API\.dockerignore
 		src\docker-compose.override.yml = src\docker-compose.override.yml
 		src\docker-compose.yml = src\docker-compose.yml
 		global.json = global.json
@@ -56,7 +57,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contracts", "src\BuildingBl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBus.Messages", "src\BuildingBlocks\EventBus.Messages\EventBus.Messages.csproj", "{FDE132D5-659C-4414-9DA5-6264AE5AD726}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infactructure", "src\BuildingBlocks\Infactructure\Infactructure.csproj", "{2AEA45B9-D74B-44EE-B572-4DA0F2EAAFA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "src\BuildingBlocks\Infactructure\Infrastructure.csproj", "{2AEA45B9-D74B-44EE-B572-4DA0F2EAAFA8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "src\BuildingBlocks\Shared\Shared.csproj", "{AF3F5FF1-37B3-49AD-B84B-C89ACE5B3420}"
 EndProject
