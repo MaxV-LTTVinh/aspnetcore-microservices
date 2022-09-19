@@ -32,7 +32,7 @@ services:
   customerdb:
     container_name: customerdb
     environment:
-      - POSTGRES_USER=admin
+      - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=admin1234
       - POSTGRES_DB=CustomerDb
     restart: always
