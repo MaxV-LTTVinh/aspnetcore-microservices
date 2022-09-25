@@ -1,5 +1,6 @@
 ﻿using Common.Logging;
 using Contracts.Common.Interfaces;
+using Customer.API.Controllers;
 using Customer.API.Persistence;
 using Customer.API.Repositories;
 using Customer.API.Repositories.Interfaces;
@@ -12,7 +13,7 @@ using Serilog;
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog(Serilogger.Configure);
 
-Log.Information("Start Customer API up");
+Log.Information("Start Customer Minimal API up");
 
 try
 {
@@ -21,13 +22,11 @@ try
     builder.Services.AddControllers();
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
 
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnectionString");
-
-    builder.Services.AddDbContext<CustomerContext>(options =>
-        options.UseNpgsql(connectionString));
-
-    builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+    builder.Services.AddDbContext<CustomerContext>(
+        options => options.UseNpgsql(connectionString));
     builder.Services.AddScoped<ICustomerRepository, CustomerRepository>()
         .AddScoped(typeof(IRepositoryBaseAsync<,,>), typeof(RepositoryBaseAsync<,,>))
         .AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>))
@@ -35,10 +34,19 @@ try
 
     var app = builder.Build();
 
-    app.MapGet("/", () => "Welcome to Customer API!");
+    // Configure the HTTP request pipeline.
+    app.MapGet("/", () => "Welcome to Customer Minimal API!");
+    app.MapCustomersAPI();
 
-    app.MapGet("/api/customers/{username}", async (string username, ICustomerService customerService) =>
-        await customerService.GetCustomerByUsernameAsync(username));
+    app.UseSwagger();
+
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json",
+            "Swagger Customer Minimal API v1");
+    });
+
+    // app.UseHttpsRedirection(); //production only
 
     app.UseAuthorization();
 
@@ -50,14 +58,12 @@ try
 catch (Exception ex)
 {
     string type = ex.GetType().Name;
-    if (type.Equals("StopTheHostException", StringComparison.Ordinal))
-    {
-        throw;
-    }
+    if (type.Equals("StopTheHostException", StringComparison.Ordinal)) throw;
+
     Log.Fatal(ex, $"Unhandled exception: {ex.Message}");
 }
 finally
 {
-    Log.Information("Shut down Customer API complete");
+    Log.Information("Shut down Customer Minimal API complete");
     Log.CloseAndFlush();
 }
