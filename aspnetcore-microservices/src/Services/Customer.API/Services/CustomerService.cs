@@ -1,6 +1,5 @@
 using Customer.API.Repositories.Interfaces;
 using Customer.API.Services.Interfaces;
-using Microsoft.EntityFrameworkCore;
 
 namespace Customer.API.Services;
 
@@ -13,6 +12,6 @@ public class CustomerService : ICustomerService
         _repository = repository;
     }
 
-    public async Task<IResult> GetCustomerByUsernameAsync(string username) => 
+    public async Task<IResult> GetCustomerByUsernameAsync(string username) =>
         Results.Ok(await _repository.GetCustomerByUsernameAsync(username));
 }

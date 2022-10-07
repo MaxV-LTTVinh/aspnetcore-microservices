@@ -1,7 +1,6 @@
 using Basket.API.Entities;
 using Basket.API.Repositories.Interfaces;
 using Contracts.Common.Interfaces;
-using Infrastructure.Common;
 using Microsoft.Extensions.Caching.Distributed;
 
 namespace Basket.API.Repositories;
@@ -24,7 +23,7 @@ public class BasketRepository : IBasketRepository
             _serializerService.Deserialize<Cart>(basket);
     }
 
-    public async Task<Cart> UpdateBasket(Cart basket, DistributedCacheEntryOptions options)
+    public async Task<Cart> UpdateBasket(Cart basket, DistributedCacheEntryOptions? options = null)
     {
         if (options != null)
             await _redisCacheService.SetStringAsync(basket.UserName,

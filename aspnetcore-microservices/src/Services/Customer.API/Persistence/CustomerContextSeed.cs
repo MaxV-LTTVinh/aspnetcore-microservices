@@ -1,4 +1,3 @@
-using Customer.API.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Customer.API.Persistence;
@@ -11,7 +10,7 @@ public static class CustomerContextSeed
         var customerContext = scope.ServiceProvider
             .GetRequiredService<CustomerContext>();
         customerContext.Database.MigrateAsync().GetAwaiter().GetResult();
-        
+
         CreateCustomer(customerContext, "customer1", "customer1", "customer", "customer1@local.com").GetAwaiter().GetResult();
         CreateCustomer(customerContext, "customer2", "customer2", "customer", "customer2@local.com").GetAwaiter().GetResult();
 

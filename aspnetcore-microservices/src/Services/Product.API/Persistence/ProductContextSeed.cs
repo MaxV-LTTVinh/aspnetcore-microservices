@@ -3,20 +3,20 @@ using ILogger = Serilog.ILogger;
 
 namespace Product.API.Persistence;
 
-public class ProductContextSeed
+public static class ProductContextSeed
 {
     public static async Task SeedProductAsync(ProductContext productContext, ILogger logger)
     {
         if (!productContext.Products.Any())
         {
-            productContext.AddRange(getCatalogProducts());
+            productContext.AddRange(GetCatalogProducts());
             await productContext.SaveChangesAsync();
             logger.Information("Seeded data for Product DB associated with context {DbContextName}",
                 nameof(ProductContext));
         }
     }
 
-    private static IEnumerable<CatalogProduct> getCatalogProducts()
+    private static IEnumerable<CatalogProduct> GetCatalogProducts()
     {
         return new List<CatalogProduct>
         {

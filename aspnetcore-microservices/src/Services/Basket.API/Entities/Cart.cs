@@ -13,9 +13,9 @@ public class Cart
     {
         UserName = userName;
     }
-        
-    public decimal TotalPrice 
-    { 
+
+    public decimal TotalPrice
+    {
         get
         {
             return Items.Sum(item => item.ProductPrice * item.Quantity);
